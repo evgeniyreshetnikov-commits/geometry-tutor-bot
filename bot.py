@@ -349,7 +349,14 @@ def build_tutor_reply(user_text: str) -> str:
     lowered = normalize_text(cleaned)
     quick = {
         "🏠 главное меню": "Выбери режим ниже 👇",
-        "📎 отправить файл": "Отправь PDF, DOCX, JPG или PNG. Я помогу разобрать условие и рисунок.",
+        "📎 отправить файл": (
+            "Чтобы отправить файл, нажми на скрепку рядом с полем ввода.\n\n"
+            "Подойдут форматы:\n"
+            "• PDF\n"
+            "• DOCX\n"
+            "• JPG\n"
+            "• PNG"
+        ),
         "📝 проверить шаг": "Пришли один свой шаг. Я проверю логику и подскажу только следующий шаг.",
         "🌟 поддержка": random_encouragement(),
     }
@@ -441,8 +448,20 @@ def extract_text_from_image(file_bytes: bytes) -> str:
     if Image is None or pytesseract is None:
         return "Не удалось распознать изображение: не установлены Pillow и/или pytesseract."
     try:
-        image = Image.open(io.BytesIO(file_bytes))
-        return pytesseract.image_to_string(image, lang="rus+eng").strip() or "На изображении не удалось распознать текст."
+        image = Image.open(io.BytesIO(file_bytes)).convert("L")
+        image = image.point(lambda x: 0 if x < 160 else 255, mode="1")
+        image = image.resize((image.width * 2, image.height * 2))
+
+        attempts = [
+            "--oem 3 --psm 6",
+            "--oem 3 --psm 11",
+            "--oem 3 --psm 4",
+        ]
+        for config in attempts:
+            text = pytesseract.image_to_string(image, lang="rus+eng", config=config).strip()
+            if len(text) > 20:
+                return text
+        return "На изображении не удалось распознать текст."
     except Exception as exc:
         logger.exception("Image OCR error: %s", exc)
         return "Не удалось обработать изображение."
@@ -459,7 +478,7 @@ async def send_main_menu(target, text: str, edit: bool = False, markup=None):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_user_stats(update, context)
     await update.message.reply_text(
-        "Привет! Я помощник по геометрии 7 класса v3 🙂\n"
+        "Привет! Я помощник по геометрии 7 класса v4 🙂\n"
         "Помогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
         reply_markup=MAIN_REPLY_MENU,
     )
@@ -707,8 +726,37 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         return
 
     extracted_text = truncate_text(extracted_text)
+    if "Не удалось" in extracted_text or "не удалось" in extracted_text:
+        await update.message.reply_text(
+            "Я получил файл, но не смог распознать текст.
+
+"
+            "Попробуй так:
+"
+            "1) отправь более чёткое изображение
+"
+            "2) обрежь только одну задачу
+"
+            "3) пришли PDF или текстом
+"
+            "4) проверь, установлен ли OCR на Railway
+
+"
+            "Для Railway добавь переменную:
+"
+            "RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus",
+            reply_markup=MAIN_REPLY_MENU,
+        )
+        return
+
     await update.message.reply_text(
-        f"Я посмотрел файл 🙂\n\n{extracted_text}\n\nСкажи теперь: что дано и что нужно доказать?",
+        f"Я посмотрел файл 🙂
+
+Вот что удалось распознать:
+
+{extracted_text}
+
+Теперь скажи: что дано и что нужно доказать?",
         reply_markup=MAIN_REPLY_MENU,
     )
 
@@ -717,9 +765,40 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     photo = update.message.photo[-1]
     telegram_file = await context.bot.get_file(photo.file_id)
     file_bytes = await telegram_file.download_as_bytearray()
+
     extracted_text = truncate_text(extract_text_from_image(bytes(file_bytes)))
+
+    if "Не удалось" in extracted_text or "не удалось" in extracted_text:
+        await update.message.reply_text(
+            "Я получил фото, но не смог распознать текст.
+
+"
+            "Попробуй так:
+"
+            "1) отправь более чёткое фото
+"
+            "2) обрежь только одну задачу
+"
+            "3) пришли PDF или текстом
+"
+            "4) проверь, установлен ли OCR на Railway
+
+"
+            "Для Railway добавь переменную:
+"
+            "RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus",
+            reply_markup=MAIN_REPLY_MENU,
+        )
+        return
+
     await update.message.reply_text(
-        f"Я посмотрел фото 🙂\n\n{extracted_text}\n\nКакие углы, стороны или треугольники ты уже замечаешь?",
+        f"Я посмотрел фото 🙂
+
+Вот что удалось распознать:
+
+{extracted_text}
+
+Теперь скажи: что дано и что нужно доказать?",
         reply_markup=MAIN_REPLY_MENU,
     )
 

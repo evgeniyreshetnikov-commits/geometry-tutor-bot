@@ -29,3 +29,8 @@ Telegram-бот по геометрии 7 класса.
 
 Для OCR на картинках добавьте apt packages:
 - `tesseract-ocr tesseract-ocr-rus`
+
+
+## OCR для фото
+
+Для распознавания JPG/PNG на Railway добавьте переменную `RAILPACK_DEPLOY_APT_PACKAGES` со значением `tesseract-ocr tesseract-ocr-rus`. В `requirements.txt` должны быть пакеты `Pillow` и `pytesseract`.
