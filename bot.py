@@ -446,7 +446,7 @@ async def send_main_menu(target, text: str, edit: bool = False):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_user_stats(context)
     await update.message.reply_text(
-        "Привет! Я помощник по геометрии 7 класса 🙂\n"
+        "Привет! Я помощник по геометрии 7 класса v2 🙂\n"
         "Помогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
         reply_markup=MAIN_REPLY_MENU,
     )
@@ -584,13 +584,13 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             stats["streak"] += 1
             add_stars(context, 2)
             await update.message.reply_text(
-                f"{random_praise()}\n\nВерно! {q['explain']}\n\n+2 ⭐{maybe_badge_text(context)}",
+                f"✅ Верно!\n\n{q['explain']}\n\n+2 ⭐{maybe_badge_text(context)}",
                 reply_markup=MAIN_REPLY_MENU,
             )
         else:
             stats["streak"] = 0
             await update.message.reply_text(
-                f"{random_encouragement()}\n\nПока неверно.\nПодсказка: {q['hint']}",
+                f"❌ Пока неверно.\n\nПодсказка: {q['hint']}",
                 reply_markup=MAIN_REPLY_MENU,
             )
         context.user_data["mode"] = None
