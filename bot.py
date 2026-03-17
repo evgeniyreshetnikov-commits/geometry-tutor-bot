@@ -67,13 +67,11 @@ PRAISES = [
     "Сильный шаг 💛",
     "Вот это рассуждение 🎉",
 ]
-
 ENCOURAGEMENTS = [
     "В геометрии идея не всегда видна сразу 🙂",
     "Давай найдём один маленький факт и пойдём дальше 💛",
     "Не спеши — здесь важнее заметить связь, чем быстро ответить 🌈",
 ]
-
 PROVOCATION_PATTERNS = [
     r"готовое решение",
     r"просто ответ",
@@ -159,18 +157,34 @@ BADGES = {
 }
 
 DAILY_TASKS = [
-    {"question": "Вертикальные углы равны? Ответь: да или нет.", "answer": "да", "hint": "Подумай про углы, которые лежат друг напротив друга."},
-    {"question": "Чему равна сумма смежных углов? Напиши только число.", "answer": "180", "hint": "Они образуют развёрнутый угол."},
-    {"question": "Что делит угол на две равные части: медиана, биссектриса или высота?", "answer": "биссектриса", "hint": "В самом слове спрятано «делит»."},
-    {"question": "Как называется отрезок из вершины к середине противоположной стороны?", "answer": "медиана", "hint": "Ключевое слово — середина."},
+    {
+        "question": "Вертикальные углы равны? Ответь: да или нет.",
+        "answer": "да",
+        "hint": "Подумай про углы, которые лежат друг напротив друга.",
+    },
+    {
+        "question": "Чему равна сумма смежных углов? Напиши только число.",
+        "answer": "180",
+        "hint": "Они образуют развёрнутый угол.",
+    },
+    {
+        "question": "Что делит угол на две равные части: медиана, биссектриса или высота?",
+        "answer": "биссектриса",
+        "hint": "В самом слове спрятано «делит».",
+    },
+    {
+        "question": "Как называется отрезок из вершины к середине противоположной стороны?",
+        "answer": "медиана",
+        "hint": "Ключевое слово — середина.",
+    },
 ]
-
 IDEA_PROMPTS = [
     "Какие фигуры или углы ты уже видишь на рисунке?",
     "Что в условии уже дано: равные стороны, равные углы, параллельные прямые?",
     "Какой первый факт можно записать без вычислений?",
     "Какое свойство может сработать здесь первым?",
 ]
+
 
 @dataclass
 class ExampleTask:
@@ -312,6 +326,7 @@ def build_provocation_reply() -> str:
 def build_tutor_reply(user_text: str) -> str:
     cleaned = user_text.strip()
     lowered = normalize_text(cleaned)
+
     quick = {
         "🏠 главное меню": "Выбери режим ниже 👇",
         "📎 отправить файл": "Отправь PDF, DOCX, JPG или PNG. Я помогу разобрать условие и рисунок.",
@@ -324,10 +339,16 @@ def build_tutor_reply(user_text: str) -> str:
         return build_provocation_reply()
     if len(cleaned) < 6:
         return "Пришли задачу текстом или фото. Сначала найдём первый полезный факт."
+
     topic_pack = detect_topic_pack(cleaned)
     if topic_pack:
         explanation, questions, next_step = topic_pack
-        return f"{explanation}\n\n1) {questions[0]}\n2) {questions[1]}\n\nСледующий шаг: {next_step}"
+        return (
+            f"{explanation}\n\n"
+            f"1) {questions[0]}\n"
+            f"2) {questions[1]}\n\n"
+            f"Следующий шаг: {next_step}"
+        )
     if any(word in lowered for word in ["мой шаг", "я доказал", "я думаю", "получилось", "мой вывод"]):
         return (
             "Проверим один шаг:\n"
@@ -357,10 +378,10 @@ def generate_training_tasks() -> list[ExampleTask]:
 
 def generate_quiz_question() -> dict:
     variants = [
-        {"question": "Что верно для вертикальных углов?", "options": ["Они равны", "Их сумма 180°", "Они всегда острые"], "correct": 0, "explain": "Вертикальные углы равны."},
-        {"question": "Что верно для смежных углов?", "options": ["Они всегда равны", "Их сумма 180°", "Их сумма 90°"], "correct": 1, "explain": "Смежные углы дают 180°."},
-        {"question": "Что делает биссектриса?", "options": ["Делит угол пополам", "Делит сторону пополам", "Перпендикулярна стороне"], "correct": 0, "explain": "Биссектриса делит угол на два равных угла."},
-        {"question": "Что такое медиана?", "options": ["Отрезок к середине стороны", "Любая сторона", "Угол 90°"], "correct": 0, "explain": "Медиана идёт к середине противоположной стороны."},
+        {"question": "Сколько градусов в прямом угле?", "answer": "90", "hint": "Это четверть полного круга.", "explain": "В прямом угле 90 градусов."},
+        {"question": "Чему равна сумма смежных углов?", "answer": "180", "hint": "Они образуют развёрнутый угол.", "explain": "Сумма смежных углов равна 180°."},
+        {"question": "Как называются углы, которые лежат друг напротив друга?", "answer": "вертикальные", "hint": "Они появляются при пересечении двух прямых.", "explain": "Такие углы называются вертикальными."},
+        {"question": "Что делит угол на две равные части?", "answer": "биссектриса", "hint": "Она делит угол пополам.", "explain": "Биссектриса делит угол на два равных угла."},
     ]
     return random.choice(variants)
 
@@ -425,7 +446,8 @@ async def send_main_menu(target, text: str, edit: bool = False):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_user_stats(context)
     await update.message.reply_text(
-        "Привет! Я помощник по геометрии 7 класса 🙂\nПомогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
+        "Привет! Я помощник по геометрии 7 класса 🙂\n"
+        "Помогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
         reply_markup=MAIN_REPLY_MENU,
     )
     await send_main_menu(update.message, "<b>Главное меню</b>\n\nВыбери режим 👇")
@@ -511,26 +533,7 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         q = generate_quiz_question()
         context.user_data["mode"] = "quiz"
         context.user_data["quiz_question"] = q
-        buttons = [[InlineKeyboardButton(opt, callback_data=f"quiz_answer:{i}")] for i, opt in enumerate(q["options"])]
-        buttons.append([InlineKeyboardButton("🏠 В меню", callback_data="home")])
-        await query.edit_message_text(f"<b>Мини-викторина</b>\n\n{html.escape(q['question'])}", reply_markup=InlineKeyboardMarkup(buttons), parse_mode="HTML")
-        return
-    if data.startswith("quiz_answer:"):
-        q = context.user_data.get("quiz_question")
-        if not q:
-            await send_main_menu(query, "Вопрос уже закончился. Выбери новый режим 👇", edit=True)
-            return
-        idx = int(data.split(":", 1)[1])
-        if idx == q["correct"]:
-            stats["quiz_correct"] += 1
-            stats["streak"] += 1
-            add_stars(context, 2)
-            text = f"{random_praise()}\n\nВерно! {html.escape(q['explain'])}\n\n+2 ⭐{maybe_badge_text(context)}"
-        else:
-            stats["streak"] = 0
-            text = f"{random_encouragement()}\n\nПока неверно. {html.escape(q['explain'])}"
-        context.user_data.pop("quiz_question", None)
-        await send_main_menu(query, text, edit=True)
+        await send_main_menu(query, f"<b>Мини-викторина</b>\n\n{html.escape(q['question'])}\n\nНапиши ответ сам. Если трудно, напиши <code>подсказка</code>.", edit=True)
         return
     if data == "home":
         await send_main_menu(query, "<b>Главное меню</b>\n\nВыбери режим 👇", edit=True)
@@ -542,7 +545,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     stats = get_user_stats(context)
     lowered = normalize_text(user_text)
 
-    if lowered == "🏠 главное меню":
+    if lowered == normalize_text("🏠 Главное меню"):
         await send_main_menu(update.message, "<b>Главное меню</b>\n\nВыбери режим 👇")
         return
 
@@ -564,6 +567,34 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             stats["streak"] = 0
             await update.message.reply_text(f"Пока неверно. {task['hint']}", reply_markup=MAIN_REPLY_MENU)
         context.user_data["mode"] = None
+        context.user_data.pop("daily_task", None)
+        return
+
+    if mode == "quiz":
+        q = context.user_data.get("quiz_question")
+        if not q:
+            context.user_data["mode"] = None
+            await update.message.reply_text("Викторина уже закончилась. Выбери новую задачу в меню 🙂", reply_markup=MAIN_REPLY_MENU)
+            return
+        if lowered == "подсказка":
+            await update.message.reply_text(f"Подсказка 💡 {q['hint']}", reply_markup=MAIN_REPLY_MENU)
+            return
+        if lowered == normalize_text(str(q["answer"])):
+            stats["quiz_correct"] += 1
+            stats["streak"] += 1
+            add_stars(context, 2)
+            await update.message.reply_text(
+                f"{random_praise()}\n\nВерно! {q['explain']}\n\n+2 ⭐{maybe_badge_text(context)}",
+                reply_markup=MAIN_REPLY_MENU,
+            )
+        else:
+            stats["streak"] = 0
+            await update.message.reply_text(
+                f"{random_encouragement()}\n\nПока неверно.\nПодсказка: {q['hint']}",
+                reply_markup=MAIN_REPLY_MENU,
+            )
+        context.user_data["mode"] = None
+        context.user_data.pop("quiz_question", None)
         return
 
     if mode == "training":
@@ -586,6 +617,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                 if idx + 1 >= len(tasks):
                     add_stars(context, 3)
                     context.user_data["mode"] = None
+                    context.user_data.pop("training_tasks", None)
                     await update.message.reply_text(
                         f"🎉 Тренировка завершена!\n\nТы выполнил(а) 5 из 5 заданий.\n+3 дополнительные ⭐{maybe_badge_text(context)}",
                         reply_markup=MAIN_REPLY_MENU,
