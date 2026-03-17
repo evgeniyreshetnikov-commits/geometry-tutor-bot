@@ -5,68 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Геометрия 7 класс — Telegram-бот</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #e7f0ff, #fff4d6, #f1e8ff);
-      display: flex; align-items: center; justify-content: center; padding: 24px;
-      color: #22304a;
-    }
-    .card {
-      max-width: 860px; width: 100%; background: rgba(255,255,255,.96);
-      border-radius: 28px; box-shadow: 0 18px 40px rgba(0,0,0,.12); overflow: hidden;
-    }
-    .hero {
-      padding: 36px 28px; text-align: center;
-      background: linear-gradient(135deg, #8ec5ff, #b69cff, #ffd88c);
-    }
-    .hero h1 { font-size: 40px; margin-bottom: 12px; }
-    .hero p { font-size: 19px; line-height: 1.6; max-width: 680px; margin: 0 auto; }
-    .content { padding: 28px; }
-    h2 { font-size: 26px; margin-bottom: 14px; color: #26457d; }
-    p { font-size: 18px; line-height: 1.7; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; margin-top: 14px; }
-    .item { border-radius: 22px; padding: 18px; background: #f8fbff; border: 2px solid #e1ecff; }
-    .item h3 { font-size: 18px; margin-bottom: 8px; }
-    .buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
-    .btn { text-decoration: none; padding: 15px 22px; border-radius: 16px; font-weight: bold; }
-    .primary { background: #229ED9; color: white; }
-    .secondary { background: #eef5ff; color: #26457d; border: 2px solid #d7e6ff; }
-    .note { margin-top: 18px; background: #fff9da; border: 2px solid #ffe07a; border-radius: 16px; padding: 14px; font-size: 15px; line-height: 1.6; }
-    .footer { padding: 0 28px 28px; color: #61708a; font-size: 14px; text-align: center; }
+    body { font-family: Arial, sans-serif; margin: 0; background: linear-gradient(135deg,#eef6ff,#fff7fb); color:#24324a; }
+    .wrap { max-width: 860px; margin: 40px auto; background:#fff; border-radius:24px; box-shadow:0 12px 32px rgba(0,0,0,.08); overflow:hidden; }
+    .hero { padding: 36px; background: linear-gradient(135deg,#8fd3ff,#d9b8ff); }
+    .hero h1 { margin:0 0 12px; font-size: 38px; }
+    .hero p { margin:0; font-size:18px; line-height:1.6; }
+    .content { padding: 28px 36px 36px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:16px; }
+    .card { background:#f8fbff; border-radius:18px; padding:16px; border:1px solid #dbeafe; }
+    .btn { display:inline-block; margin-top:18px; background:#229ED9; color:#fff; text-decoration:none; padding:14px 22px; border-radius:14px; font-weight:bold; }
   </style>
 </head>
 <body>
-  <main class="card">
-    <section class="hero">
+  <div class="wrap">
+    <div class="hero">
       <h1>Геометрия 7 класс</h1>
-      <p>Telegram-бот, который помогает понять идею задачи, разобрать доказательство по шагам и тренироваться без готовых решений.</p>
-    </section>
-    <section class="content">
-      <div>
-        <h2>Что умеет бот</h2>
-        <div class="grid">
-          <div class="item"><h3>💡 Найти идею</h3><p>Подсказывает, с какого факта начать рассуждение.</p></div>
-          <div class="item"><h3>🧠 Разбор доказательства</h3><p>Ведёт по шагам: дано, доказать, факт, свойство, вывод.</p></div>
-          <div class="item"><h3>🏋️ Тренировка</h3><p>Даёт короткие задания по базовым темам геометрии 7 класса.</p></div>
-          <div class="item"><h3>🌟 Мотивация</h3><p>Звёздочки, достижения и задание дня помогают возвращаться к занятиям.</p></div>
-        </div>
+      <p>Telegram-бот помогает понять идею доказательства, потренироваться и пройти викторину по геометрии 7 класса.</p>
+    </div>
+    <div class="content">
+      <h2>Что умеет бот</h2>
+      <div class="grid">
+        <div class="card">Разбирает задачи по шагам и не даёт готовые решения.</div>
+        <div class="card">Помогает найти идею доказательства.</div>
+        <div class="card">Даёт тренировку на 5 заданий.</div>
+        <div class="card">Есть викторина: лёгкий, средний, сложный и режим 5 подряд.</div>
       </div>
-      <div style="margin-top: 28px;">
-        <h2>Темы</h2>
-        <p>Углы, смежные и вертикальные углы, треугольники, признаки равенства треугольников, медиана, биссектриса, высота, параллельные прямые и доказательства.</p>
-      </div>
-      <div style="margin-top: 28px;">
-        <h2>Открыть Telegram-бота</h2>
-        <p>Перед публикацией замените имя и ссылку бота на свои.</p>
-        <div class="buttons">
-          <a class="btn primary" href="https://t.me/your_geometry7_bot" target="_blank" rel="noopener noreferrer">Открыть Telegram-бота</a>
-          <a class="btn secondary" href="#">Геометрия 7 класс</a>
-        </div>
-        <div class="note"><strong>Важно:</strong> бот не выдаёт готовые решения. Он помогает ребёнку самому увидеть идею и построить доказательство шаг за шагом.</div>
-      </div>
-    </section>
-    <footer class="footer">© 2026 Геометрия 7 класс • Telegram-бот для размещения в GitHub</footer>
-  </main>
+      <a class="btn" href="https://t.me/your_bot_username" target="_blank" rel="noopener noreferrer">Открыть Telegram-бота</a>
+    </div>
+  </div>
 </body>
 </html>
