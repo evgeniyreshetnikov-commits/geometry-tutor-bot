@@ -1,24 +1,20 @@
-# Geometry 7 Tutor Bot
+# Геометрия 7 класс — Telegram бот
 
-Telegram-бот репетитор по геометрии 7 класса.
+Бот помогает разбирать задачи по геометрии 7 класса без готовых решений.
 
-## Что умеет
-- объясняет темы простыми словами
-- не даёт готовые решения
-- помогает по шагам
-- принимает PDF, DOCX, JPG, PNG
-- тренировка, викторина, задание дня, достижения
+## Возможности
+- объяснение тем
+- поиск идеи задачи
+- разбор доказательств по шагам
+- тренировка и мини-викторина
+- задание дня, прогресс, достижения
+- чтение PDF, DOCX, JPG, PNG
+- улучшенная обработка фото и OCR
 
 ## Railway
-1. Загрузите файлы в GitHub.
-2. Подключите репозиторий в Railway.
-3. В Variables добавьте `BOT_TOKEN`.
-4. Для OCR фото добавьте:
-   `RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus`
-5. Start Command: `python bot.py`
+Добавьте переменные:
+- `BOT_TOKEN`
+- `RAILPACK_DEPLOY_APT_PACKAGES=tesseract-ocr tesseract-ocr-rus`
 
-## Локальный запуск
-```bash
-pip install -r requirements.txt
-python bot.py
-```
+## Запуск
+`python bot.py`

@@ -25,7 +25,7 @@ from telegram.ext import (
 )
 
 try:
-    import fitz  # PyMuPDF
+    import fitz
 except Exception:
     fitz = None
 
@@ -67,76 +67,28 @@ PRAISES = [
     "Отличная мысль 👍",
     "Ты уже близко ⭐",
     "Сильный шаг 💛",
-    "Вот это рассуждение 🎉",
 ]
-
 ENCOURAGEMENTS = [
     "В геометрии идея не всегда видна сразу 🙂",
     "Давай найдём один маленький факт и пойдём дальше 💛",
-    "Не спеши — здесь важнее заметить связь, чем быстро ответить 🌈",
+    "Не спеши — здесь важнее заметить связь 🌈",
 ]
-
 PROVOCATION_PATTERNS = [
-    r"готовое решение",
-    r"просто ответ",
-    r"дай ответ",
-    r"без объяснений",
-    r"докажи за меня",
-    r"реши за меня",
-    r"сделай за меня",
-    r"мне срочно",
-    r"только ответ",
-    r"не объясняй",
-    r"скажи правильное доказательство",
-    r"можно просто результат",
+    r"готовое решение", r"просто ответ", r"дай ответ", r"без объяснений",
+    r"докажи за меня", r"реши за меня", r"сделай за меня", r"мне срочно",
+    r"только ответ", r"не объясняй", r"скажи правильное доказательство",
 ]
 
 TOPIC_HINTS = {
-    "угол": (
-        "Угол образуют два луча с общей вершиной.",
-        ["Какая вершина у угла?", "Какие два луча его образуют?"],
-        "Назови вершину и стороны угла.",
-    ),
-    "смеж": (
-        "Смежные углы вместе дают 180°.",
-        ["Эти углы имеют общую сторону?", "Остальные стороны образуют прямую?"],
-        "Запиши равенство для суммы этих углов.",
-    ),
-    "вертик": (
-        "Вертикальные углы равны.",
-        ["Какие углы расположены напротив друг друга?", "Какое свойство можно применить?"],
-        "Найди пару вертикальных углов и запиши, что они равны.",
-    ),
-    "треуг": (
-        "В треугольнике важно смотреть на стороны, углы и признаки равенства.",
-        ["Что известно про стороны и углы?", "Есть ли здесь признак равенства треугольников?"],
-        "Выпиши всё известное о треугольнике коротким списком.",
-    ),
-    "равенств": (
-        "Для равенства треугольников нужен подходящий признак.",
-        ["Есть ли две стороны и угол между ними?", "Или сторона и два прилежащих угла?"],
-        "Определи, какой признак здесь подходит.",
-    ),
-    "медиан": (
-        "Медиана идёт из вершины к середине противоположной стороны.",
-        ["Какая точка — середина стороны?", "Из какой вершины проведён отрезок?"],
-        "Назови сторону и её середину.",
-    ),
-    "биссект": (
-        "Биссектриса делит угол на два равных угла.",
-        ["Какой угол делят пополам?", "Какие два угла при этом равны?"],
-        "Запиши пару равных углов.",
-    ),
-    "высот": (
-        "Высота перпендикулярна стороне или её продолжению.",
-        ["Из какой вершины она проведена?", "К какой стороне она перпендикулярна?"],
-        "Запиши, какие прямые перпендикулярны.",
-    ),
-    "паралл": (
-        "При параллельных прямых полезно искать накрест лежащие и соответственные углы.",
-        ["Какие прямые параллельны?", "Есть ли секущая?"],
-        "Найди одну пару углов, связь между которыми можно использовать.",
-    ),
+    "угол": ("Угол образуют два луча с общей вершиной.", ["Какая вершина у угла?", "Какие два луча его образуют?"], "Назови вершину и стороны угла."),
+    "смеж": ("Смежные углы вместе дают 180°.", ["Эти углы имеют общую сторону?", "Остальные стороны образуют прямую?"], "Запиши равенство для суммы этих углов."),
+    "вертик": ("Вертикальные углы равны.", ["Какие углы расположены напротив друг друга?", "Какое свойство можно применить?"], "Найди пару вертикальных углов и запиши, что они равны."),
+    "треуг": ("В треугольнике важно смотреть на стороны, углы и признаки равенства.", ["Что известно про стороны и углы?", "Есть ли здесь признак равенства треугольников?"], "Выпиши всё известное о треугольнике коротким списком."),
+    "равенств": ("Для равенства треугольников нужен подходящий признак.", ["Есть ли две стороны и угол между ними?", "Или сторона и два прилежащих угла?"], "Определи, какой признак здесь подходит."),
+    "медиан": ("Медиана идёт из вершины к середине противоположной стороны.", ["Какая точка — середина стороны?", "Из какой вершины проведён отрезок?"], "Назови сторону и её середину."),
+    "биссект": ("Биссектриса делит угол на два равных угла.", ["Какой угол делят пополам?", "Какие два угла при этом равны?"], "Запиши пару равных углов."),
+    "высот": ("Высота перпендикулярна стороне или её продолжению.", ["Из какой вершины она проведена?", "К какой стороне она перпендикулярна?"], "Запиши, какие прямые перпендикулярны."),
+    "паралл": ("При параллельных прямых полезно искать накрест лежащие и соответственные углы.", ["Какие прямые параллельны?", "Есть ли секущая?"], "Найди одну пару углов, связь между которыми можно использовать."),
 }
 
 TOPICS_MENU_TEXT = (
@@ -163,17 +115,15 @@ BADGES = {
 DAILY_TASKS = [
     {"question": "Вертикальные углы равны? Ответь: да или нет.", "answer": "да", "hint": "Подумай про углы, которые лежат друг напротив друга."},
     {"question": "Чему равна сумма смежных углов? Напиши только число.", "answer": "180", "hint": "Они образуют развёрнутый угол."},
-    {"question": "Что делит угол на две равные части: медиана, биссектриса или высота?", "answer": "биссектриса", "hint": "Этот отрезок делит угол пополам."},
+    {"question": "Что делит угол на две равные части: медиана, биссектриса или высота?", "answer": "биссектриса", "hint": "В самом слове спрятано «делит»."},
     {"question": "Как называется отрезок из вершины к середине противоположной стороны?", "answer": "медиана", "hint": "Ключевое слово — середина."},
 ]
-
 IDEA_PROMPTS = [
     "Какие фигуры или углы ты уже видишь на рисунке?",
     "Что в условии уже дано: равные стороны, равные углы, параллельные прямые?",
     "Какой первый факт можно записать без вычислений?",
     "Какое свойство может сработать здесь первым?",
 ]
-
 
 @dataclass
 class ExampleTask:
@@ -186,30 +136,13 @@ class ExampleTask:
 
 
 def main_inline_menu() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("📘 Объясни тему", callback_data="menu_topic"),
-                InlineKeyboardButton("💡 Найти идею", callback_data="idea_mode"),
-            ],
-            [
-                InlineKeyboardButton("🧠 Разберём доказательство", callback_data="menu_steps"),
-                InlineKeyboardButton("🧩 Шаблон доказательства", callback_data="proof_template"),
-            ],
-            [
-                InlineKeyboardButton("🏋️ Тренировка", callback_data="train_start"),
-                InlineKeyboardButton("🎯 Мини-викторина", callback_data="quiz_start"),
-            ],
-            [
-                InlineKeyboardButton("📅 Задание дня", callback_data="daily_task"),
-                InlineKeyboardButton("🌟 Мой прогресс", callback_data="show_progress"),
-            ],
-            [
-                InlineKeyboardButton("🏅 Достижения", callback_data="show_badges"),
-                InlineKeyboardButton("👨‍👩‍👧 Для родителей", callback_data="parents_info"),
-            ],
-        ]
-    )
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("📘 Объясни тему", callback_data="menu_topic"), InlineKeyboardButton("💡 Найти идею", callback_data="idea_mode")],
+        [InlineKeyboardButton("🧠 Разберём доказательство", callback_data="menu_steps"), InlineKeyboardButton("🧩 Шаблон доказательства", callback_data="proof_template")],
+        [InlineKeyboardButton("🏋️ Тренировка", callback_data="train_start"), InlineKeyboardButton("🎯 Мини-викторина", callback_data="quiz_start")],
+        [InlineKeyboardButton("📅 Задание дня", callback_data="daily_task"), InlineKeyboardButton("🌟 Мой прогресс", callback_data="show_progress")],
+        [InlineKeyboardButton("🏅 Достижения", callback_data="show_badges"), InlineKeyboardButton("👨‍👩‍👧 Для родителей", callback_data="parents_info")],
+    ])
 
 
 def build_progress_bar(stars: int) -> str:
@@ -218,15 +151,7 @@ def build_progress_bar(stars: int) -> str:
 
 
 def default_stats() -> dict:
-    return {
-        "stars": 0,
-        "level": 1,
-        "solved_training": 0,
-        "quiz_correct": 0,
-        "streak": 0,
-        "badges": [],
-        "last_daily_date": "",
-    }
+    return {"stars": 0, "level": 1, "solved_training": 0, "quiz_correct": 0, "streak": 0, "badges": [], "last_daily_date": ""}
 
 
 def get_user_stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> dict:
@@ -302,16 +227,11 @@ def random_encouragement() -> str:
 
 def maybe_badge_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
     new_badges = grant_badges(update, context)
-    if not new_badges:
-        return ""
-    return "\n\n🎉 Новое достижение:\n" + "\n".join(f"• {name}" for name in new_badges)
+    return "" if not new_badges else "\n\n🎉 Новое достижение:\n" + "\n".join(f"• {name}" for name in new_badges)
 
 
 def build_provocation_reply() -> str:
-    return (
-        "Я не дам готовое решение, но помогу тебе самому его построить 🙂\n\n"
-        "Сначала найдём: что дано, что нужно доказать и какой первый факт можно записать."
-    )
+    return "Я не дам готовое решение, но помогу тебе самому его построить 🙂\n\nСначала найдём: что дано, что нужно доказать и какой первый факт можно записать."
 
 
 def build_tutor_reply(user_text: str) -> str:
@@ -319,14 +239,7 @@ def build_tutor_reply(user_text: str) -> str:
     lowered = normalize_text(cleaned)
     quick = {
         "🏠 главное меню": "Выбери режим ниже 👇",
-        "📎 отправить файл": (
-            "Чтобы отправить файл, нажми на скрепку рядом с полем ввода.\n\n"
-            "Подойдут форматы:\n"
-            "• PDF\n"
-            "• DOCX\n"
-            "• JPG\n"
-            "• PNG"
-        ),
+        "📎 отправить файл": "Чтобы отправить файл, нажми на скрепку рядом с полем ввода и выбери PDF, DOCX, JPG или PNG.",
         "📝 проверить шаг": "Пришли один свой шаг. Я проверю логику и подскажу только следующий шаг.",
         "🌟 поддержка": random_encouragement(),
     }
@@ -339,25 +252,10 @@ def build_tutor_reply(user_text: str) -> str:
     topic_pack = detect_topic_pack(cleaned)
     if topic_pack:
         explanation, questions, next_step = topic_pack
-        return (
-            f"{explanation}\n\n"
-            f"1) {questions[0]}\n"
-            f"2) {questions[1]}\n\n"
-            f"Следующий шаг: {next_step}"
-        )
+        return f"{explanation}\n\n1) {questions[0]}\n2) {questions[1]}\n\nСледующий шаг: {next_step}"
     if any(word in lowered for word in ["мой шаг", "я доказал", "я думаю", "получилось", "мой вывод"]):
-        return (
-            "Проверим один шаг:\n"
-            "1) Он опирается на условие или свойство?\n"
-            "2) Здесь нет пропуска в рассуждении?\n"
-            "3) Что из этого следует дальше?"
-        )
-    return (
-        "Давай начнём просто:\n"
-        "1) Что дано?\n"
-        "2) Что нужно доказать или найти?\n"
-        "3) Какой первый факт можно записать?"
-    )
+        return "Проверим один шаг:\n1) Он опирается на условие или свойство?\n2) Здесь нет пропуска в рассуждении?\n3) Что из этого следует дальше?"
+    return "Давай начнём просто:\n1) Что дано?\n2) Что нужно доказать или найти?\n3) Какой первый факт можно записать?"
 
 
 def generate_training_tasks() -> list[ExampleTask]:
@@ -374,10 +272,10 @@ def generate_training_tasks() -> list[ExampleTask]:
 
 def generate_quiz_question() -> dict:
     variants = [
-        {"question": "Что верно для вертикальных углов?", "answer": "они равны", "hint": "Эти углы лежат напротив друг друга.", "explain": "Вертикальные углы равны."},
-        {"question": "Чему равна сумма смежных углов?", "answer": "180", "hint": "Они образуют развёрнутый угол.", "explain": "Сумма смежных углов равна 180°."},
-        {"question": "Что делит угол на две равные части?", "answer": "биссектриса", "hint": "Этот отрезок делит угол пополам.", "explain": "Биссектриса делит угол на два равных угла."},
-        {"question": "Как называется отрезок из вершины к середине противоположной стороны?", "answer": "медиана", "hint": "Ключевое слово — середина стороны.", "explain": "Медиана соединяет вершину с серединой противоположной стороны."},
+        {"question": "Что верно для вертикальных углов?", "answer": "они равны", "hint": "Подумай про углы, которые лежат друг напротив друга.", "explain": "Вертикальные углы равны."},
+        {"question": "Что верно для смежных углов?", "answer": "их сумма 180", "hint": "Они образуют развёрнутый угол.", "explain": "Смежные углы дают 180°."},
+        {"question": "Что делает биссектриса?", "answer": "делит угол пополам", "hint": "Она работает именно с углом.", "explain": "Биссектриса делит угол на два равных угла."},
+        {"question": "Что такое медиана?", "answer": "отрезок к середине стороны", "hint": "Ключевое слово — середина.", "explain": "Медиана идёт к середине противоположной стороны."},
     ]
     return random.choice(variants)
 
@@ -395,8 +293,8 @@ def format_progress_text(stats: dict) -> str:
 
 
 def daily_task_for_today() -> dict:
-    day_index = datetime.now(timezone.utc).timetuple().tm_yday % len(DAILY_TASKS)
-    return DAILY_TASKS[day_index]
+    idx = datetime.now(timezone.utc).timetuple().tm_yday % len(DAILY_TASKS)
+    return DAILY_TASKS[idx]
 
 
 def extract_text_from_pdf(file_bytes: bytes) -> str:
@@ -421,41 +319,52 @@ def extract_text_from_docx(file_bytes: bytes) -> str:
         return "Не удалось прочитать Word-файл."
 
 
-def preprocess_image_for_ocr(image: Image.Image) -> list:
-    variants = []
-    base = image.convert("L")
-    variants.append(base)
-    variants.append(ImageOps.autocontrast(base))
-    sharp = ImageOps.autocontrast(base).filter(ImageFilter.SHARPEN)
-    variants.append(sharp)
-    enlarged = sharp.resize((sharp.width * 2, sharp.height * 2))
-    variants.append(enlarged)
-    threshold = enlarged.point(lambda x: 0 if x < 160 else 255, mode="1")
-    variants.append(threshold)
-    return variants
+def image_variants(image):
+    yield image
+    if ImageOps is not None:
+        gray = ImageOps.grayscale(image)
+        yield gray
+        yield ImageOps.autocontrast(gray)
+        enlarged = ImageOps.autocontrast(gray).resize((gray.width * 2, gray.height * 2))
+        yield enlarged
+        if ImageFilter is not None:
+            yield enlarged.filter(ImageFilter.SHARPEN)
+
+
+def ocr_quality_good(text: str) -> bool:
+    text = text.strip()
+    if len(text) < 18:
+        return False
+    cyr = len(re.findall(r"[А-Яа-яЁё]", text))
+    digits = len(re.findall(r"\d", text))
+    letters = len(re.findall(r"[A-Za-zА-Яа-яЁё]", text))
+    bad = len(re.findall(r"[^\w\s.,:;!?%°=+\-()/]", text))
+    return (cyr + digits >= 10) and letters >= 8 and bad < max(6, len(text) // 8)
 
 
 def extract_text_from_image(file_bytes: bytes) -> str:
     if Image is None or pytesseract is None:
-        return "Не удалось обработать изображение: не установлены Pillow и/или pytesseract."
+        return "OCR_NOT_AVAILABLE"
     try:
         image = Image.open(io.BytesIO(file_bytes))
-        texts = []
-        for variant in preprocess_image_for_ocr(image):
-            for psm in (6, 11):
+        candidates = []
+        for variant in image_variants(image):
+            for config in ["--psm 6", "--psm 11", "--psm 4"]:
                 try:
-                    text = pytesseract.image_to_string(variant, lang="rus+eng", config=f"--psm {psm}").strip()
+                    text = pytesseract.image_to_string(variant, lang="rus+eng", config=config).strip()
                 except Exception:
                     continue
                 if text:
-                    texts.append(text)
-        if not texts:
-            return "Не удалось распознать текст на изображении."
-        texts.sort(key=len, reverse=True)
-        return texts[0]
+                    candidates.append(text)
+                    if ocr_quality_good(text):
+                        return text
+        if candidates:
+            best = max(candidates, key=len)
+            return best if ocr_quality_good(best) else "OCR_LOW_QUALITY"
+        return "OCR_LOW_QUALITY"
     except Exception as exc:
         logger.exception("Image OCR error: %s", exc)
-        return "Не удалось обработать изображение."
+        return "OCR_LOW_QUALITY"
 
 
 async def send_main_menu(target, text: str, edit: bool = False):
@@ -468,8 +377,7 @@ async def send_main_menu(target, text: str, edit: bool = False):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_user_stats(update, context)
     await update.message.reply_text(
-        "Привет! Я помощник по геометрии 7 класса v4 🙂\n"
-        "Помогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
+        "Привет! Я помощник по геометрии 7 класса v5 🙂\nПомогаю понять идею, разобрать доказательство и потренироваться без готовых решений.",
         reply_markup=MAIN_REPLY_MENU,
     )
     await send_main_menu(update.message, "<b>Главное меню</b>\n\nВыбери режим 👇")
@@ -501,10 +409,7 @@ async def daily_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     task = daily_task_for_today()
     context.user_data["mode"] = "daily"
     context.user_data["daily_task"] = task
-    await update.message.reply_text(
-        f"📅 Задание дня\n\n{task['question']}\n\nЕсли трудно, напиши: подсказка",
-        reply_markup=MAIN_REPLY_MENU,
-    )
+    await update.message.reply_text(f"📅 Задание дня\n\n{task['question']}\n\nЕсли трудно, напиши: подсказка", reply_markup=MAIN_REPLY_MENU)
 
 
 async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -512,7 +417,6 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await query.answer()
     data = query.data or ""
     stats = get_user_stats(update, context)
-
     if data == "menu_topic":
         await send_main_menu(query, TOPICS_MENU_TEXT, edit=True)
         return
@@ -563,13 +467,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     user_text = (update.message.text or "").strip()
     stats = get_user_stats(update, context)
     lowered = normalize_text(user_text)
-
     if lowered == "🏠 главное меню":
         await send_main_menu(update.message, "<b>Главное меню</b>\n\nВыбери режим 👇")
         return
-
     mode = context.user_data.get("mode")
-
     if mode == "daily":
         task = context.user_data.get("daily_task", daily_task_for_today())
         if lowered == "подсказка":
@@ -587,7 +488,6 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             await update.message.reply_text(f"Пока неверно. {task['hint']}", reply_markup=MAIN_REPLY_MENU)
         context.user_data["mode"] = None
         return
-
     if mode == "training":
         tasks = context.user_data.get("training_tasks", [])
         idx = context.user_data.get("training_index", 0)
@@ -608,21 +508,14 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                 if idx + 1 >= len(tasks):
                     add_stars(update, context, 3)
                     context.user_data["mode"] = None
-                    await update.message.reply_text(
-                        f"🎉 Тренировка завершена!\n\nТы выполнил(а) 5 из 5 заданий.\n+3 дополнительные ⭐{maybe_badge_text(update, context)}",
-                        reply_markup=MAIN_REPLY_MENU,
-                    )
+                    await update.message.reply_text(f"🎉 Тренировка завершена!\n\nТы выполнил(а) 5 из 5 заданий.\n+3 дополнительные ⭐{maybe_badge_text(update, context)}", reply_markup=MAIN_REPLY_MENU)
                     return
                 next_task = tasks[idx + 1]
-                await update.message.reply_text(
-                    f"{random_praise()}\n\n+1 ⭐\nСледующее задание:\n{next_task.text}",
-                    reply_markup=MAIN_REPLY_MENU,
-                )
+                await update.message.reply_text(f"{random_praise()}\n\n+1 ⭐\nСледующее задание:\n{next_task.text}", reply_markup=MAIN_REPLY_MENU)
                 return
             stats["streak"] = 0
             await update.message.reply_text(f"{random_encouragement()}\n\nПопробуй ещё раз или напиши: подсказка", reply_markup=MAIN_REPLY_MENU)
             return
-
     if mode == "quiz":
         q = context.user_data.get("quiz_question")
         if not q:
@@ -631,30 +524,30 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         if lowered == "подсказка":
             await update.message.reply_text(f"Подсказка 💡 {q['hint']}", reply_markup=MAIN_REPLY_MENU)
             return
-        if lowered == normalize_text(q["answer"]):
+        accepted = {normalize_text(q["answer"]) }
+        if q["answer"] == "они равны":
+            accepted.update(["равны", "они равны"])
+        if q["answer"] == "их сумма 180":
+            accepted.update(["180", "сумма 180", "их сумма 180", "180 градусов"])
+        if q["answer"] == "делит угол пополам":
+            accepted.update(["делит угол на две равные части", "пополам"])
+        if q["answer"] == "отрезок к середине стороны":
+            accepted.update(["к середине противоположной стороны", "отрезок к середине противоположной стороны"])
+        if lowered in accepted:
             stats["quiz_correct"] += 1
             stats["streak"] += 1
             add_stars(update, context, 2)
-            await update.message.reply_text(
-                f"✅ Верно!\n\n{q['explain']}\n\n+2 ⭐{maybe_badge_text(update, context)}",
-                reply_markup=MAIN_REPLY_MENU,
-            )
+            await update.message.reply_text(f"✅ Верно!\n\n{q['explain']}\n\n+2 ⭐{maybe_badge_text(update, context)}", reply_markup=MAIN_REPLY_MENU)
             context.user_data["mode"] = None
             context.user_data.pop("quiz_question", None)
             return
         stats["streak"] = 0
-        await update.message.reply_text(
-            f"❌ Пока неверно.\n\nПодсказка: {q['hint']}\n\nПопробуй ещё раз.",
-            reply_markup=MAIN_REPLY_MENU,
-        )
+        await update.message.reply_text(f"❌ Пока неверно.\n\nПодсказка: {q['hint']}\n\nПопробуй ещё раз.", reply_markup=MAIN_REPLY_MENU)
         return
-
     if mode == "idea":
         await update.message.reply_text("💡 Идея задачи\n\n" + random.choice(IDEA_PROMPTS), reply_markup=MAIN_REPLY_MENU)
         return
-
-    reply = build_tutor_reply(user_text)
-    await update.message.reply_text(reply, reply_markup=MAIN_REPLY_MENU)
+    await update.message.reply_text(build_tutor_reply(user_text), reply_markup=MAIN_REPLY_MENU)
 
 
 async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -662,61 +555,58 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     file_name = (document.file_name or "").lower()
     telegram_file = await context.bot.get_file(document.file_id)
     file_bytes = await telegram_file.download_as_bytearray()
-
     if file_name.endswith(".pdf"):
         extracted_text = extract_text_from_pdf(bytes(file_bytes))
     elif file_name.endswith(".docx"):
         extracted_text = extract_text_from_docx(bytes(file_bytes))
     elif any(file_name.endswith(ext) for ext in [".jpg", ".jpeg", ".png"]):
         extracted_text = extract_text_from_image(bytes(file_bytes))
+        if extracted_text in {"OCR_NOT_AVAILABLE", "OCR_LOW_QUALITY"}:
+            await update.message.reply_text(
+                "Я получил изображение как файл, но не смог хорошо распознать текст.\n\n"
+                "Попробуй так:\n"
+                "1) обрежь только одну задачу\n"
+                "2) выбери светлый фон и тёмный текст\n"
+                "3) пришли PDF или напиши условие текстом\n"
+                "4) проверь OCR в Railway: RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus",
+                reply_markup=MAIN_REPLY_MENU,
+            )
+            return
     else:
         await update.message.reply_text("Я поддерживаю PDF, DOCX, JPG и PNG.", reply_markup=MAIN_REPLY_MENU)
         return
-
     extracted_text = truncate_text(extracted_text)
-    if "Не удалось" in extracted_text or "не удалось" in extracted_text:
-        await update.message.reply_text(
-            "Я получил файл, но не смог распознать текст.\n\n"
-            "Попробуй так:\n"
-            "1) отправь более чёткое фото\n"
-            "2) обрежь только одну задачу\n"
-            "3) пришли PDF или текстом\n"
-            "4) проверь, установлен ли OCR на Railway\n\n"
-            "Для Railway добавь переменную:\n"
-            "RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus",
-            reply_markup=MAIN_REPLY_MENU,
-        )
-        return
-
-    await update.message.reply_text(
-        f"Я посмотрел файл 🙂\n\nВот что удалось распознать:\n\n{extracted_text}\n\nТеперь скажи: что дано и что нужно доказать?",
-        reply_markup=MAIN_REPLY_MENU,
-    )
+    await update.message.reply_text(f"Я посмотрел файл 🙂\n\nВот что удалось прочитать:\n\n{extracted_text}\n\nТеперь скажи: что дано и что нужно доказать?", reply_markup=MAIN_REPLY_MENU)
 
 
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     photo = update.message.photo[-1]
     telegram_file = await context.bot.get_file(photo.file_id)
     file_bytes = await telegram_file.download_as_bytearray()
-
-    extracted_text = truncate_text(extract_text_from_image(bytes(file_bytes)))
-
-    if "Не удалось" in extracted_text or "не удалось" in extracted_text:
+    extracted_text = extract_text_from_image(bytes(file_bytes))
+    if extracted_text == "OCR_NOT_AVAILABLE":
         await update.message.reply_text(
-            "Я получил фото, но не смог распознать текст.\n\n"
-            "Попробуй так:\n"
-            "1) отправь более чёткое фото\n"
-            "2) обрежь только одну задачу\n"
-            "3) пришли PDF или текстом\n"
-            "4) проверь, установлен ли OCR на Railway\n\n"
-            "Для Railway добавь переменную:\n"
+            "Я получил фото, но OCR сейчас недоступен.\n\n"
+            "Проверь, установлен ли OCR на Railway:\n"
             "RAILPACK_DEPLOY_APT_PACKAGES = tesseract-ocr tesseract-ocr-rus",
             reply_markup=MAIN_REPLY_MENU,
         )
         return
-
+    if extracted_text == "OCR_LOW_QUALITY":
+        await update.message.reply_text(
+            "Я увидел чертёж, но текст на фото распознался плохо.\n\n"
+            "Попробуй так:\n"
+            "1) обрежь только одну задачу\n"
+            "2) сделай фото ровно сверху\n"
+            "3) выбери светлый фон и тёмный текст\n"
+            "4) пришли скриншот, PDF или текст условия\n\n"
+            "Если хочешь, можешь сразу написать: где прямой угол, какой угол дан и что нужно найти.",
+            reply_markup=MAIN_REPLY_MENU,
+        )
+        return
+    extracted_text = truncate_text(extracted_text)
     await update.message.reply_text(
-        f"Я посмотрел фото 🙂\n\nВот что удалось распознать:\n\n{extracted_text}\n\nТеперь скажи: что дано и что нужно доказать?",
+        f"Я посмотрел фото 🙂\n\nВот что удалось распознать:\n\n{extracted_text}\n\nТеперь скажи: что дано и что нужно найти или доказать?",
         reply_markup=MAIN_REPLY_MENU,
     )
 
@@ -725,10 +615,10 @@ async def fallback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("Я могу помочь с задачей, идеей, доказательством, тренировкой или файлом 🙂", reply_markup=MAIN_REPLY_MENU)
 
 
+
 def main() -> None:
     if not BOT_TOKEN:
         raise ValueError("Set BOT_TOKEN in Railway Variables.")
-
     application = Application.builder().token(BOT_TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
@@ -741,7 +631,6 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.Document.ALL, handle_document))
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo))
     application.add_handler(MessageHandler(filters.ALL, fallback))
-
     logger.info("Bot is running...")
     application.run_polling()
 
